@@ -1,37 +1,60 @@
 # Personal Expense Tracker
 
+expenses = []
+
 print("==============================")
 print("       EXPENSE TRACKER")
 print("==============================")
 
 name = input("Enter your name: ")
-
-expenses = []
+print(f"\nWelcome, {name}!")
 
 while True:
-    print("\n1. Add Expense")
+    print("\n---------- MENU ----------")
+    print("1. Add Expense")
     print("2. View Expenses")
     print("3. Show Total")
     print("4. Exit")
 
-    choice = input("Choose an option: ")
+    choice = input("Enter your choice: ")
 
     if choice == "1":
-        category = input("Enter category (Food/Travel/Shopping/Other): ")
         amount = float(input("Enter amount: ₹"))
 
-        expenses.append({
-            "category": category,
-            "amount": amount
-        })
+        print("\nCategories:")
+        print("1. Food")
+        print("2. Travel")
+        print("3. Shopping")
+        print("4. Bills")
+        print("5. Other")
 
-        print("Expense added successfully!")
+        category_choice = input("Choose category: ")
+
+        categories = {
+            "1": "Food",
+            "2": "Travel",
+            "3": "Shopping",
+            "4": "Bills",
+            "5": "Other"
+        }
+
+        category = categories.get(category_choice, "Other")
+
+        expense = {
+            "amount": amount,
+            "category": category
+        }
+
+        expenses.append(expense)
+
+        print(f"Expense added: ₹{amount:.2f} ({category})")
 
     elif choice == "2":
         if not expenses:
-            print("No expenses recorded.")
+            print("\nNo expenses recorded yet.")
         else:
-            print("\nYour Expenses:")
+            print("\n------- YOUR EXPENSES -------")
+
             for i, expense in enumerate(expenses, start=1):
                 print(
                     f"{i}. {expense['category']} - "
@@ -40,11 +63,11 @@ while True:
 
     elif choice == "3":
         total = sum(expense["amount"] for expense in expenses)
-        print(f"\nTotal spent: ₹{total:.2f}")
+        print(f"\nTotal expenses: ₹{total:.2f}")
 
     elif choice == "4":
-        print(f"\nGoodbye, {name}!")
+        print(f"\nThank you, {name}! Goodbye.")
         break
 
     else:
-        print("Invalid choice. Please try again.")
+        print("\nInvalid choice. Please try again.")
